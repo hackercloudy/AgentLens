@@ -1,0 +1,13 @@
+# Render Blueprint: Render dashboard -> New -> Blueprint -> pick this repo.
+# After the first deploy add GROQ_API_KEY (and optionally AGENTLENS_PASSWORD) under Environment.
+services:
+  - type: web
+    name: agentlens
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: AGENTLENS_READONLY
+        value: "1"
+      - key: AGENTLENS_RATE_LIMIT
+        value: "20"

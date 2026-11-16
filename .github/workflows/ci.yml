@@ -1,0 +1,13 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -r requirements-dev.txt
+      - run: pytest -q
+      # Quality gate: the offline eval must stay above 90% so regressions in retrieval/prompting fail the build
+      - run: python -c "from app import demo_data; demo_data.ensure_demo_data(); from app.ingest import KnowledgeBase; from app.evals import run_eval; r=run_eval({}, KnowledgeBase()); print('accuracy', r['accuracy']); assert r['accuracy']>=90"

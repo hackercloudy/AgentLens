@@ -1,0 +1,11 @@
+services:
+  agentlens:
+    build: .
+    ports: ["8000:8000"]
+    environment:
+      OLLAMA_HOST: http://host.docker.internal:11434   # Ollama running on your machine
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+    extra_hosts: ["host.docker.internal:host-gateway"]
+    volumes: ["agentlens-data:/srv/data"]
+volumes:
+  agentlens-data:

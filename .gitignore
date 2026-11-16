@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+data/sales.db
+data/uploads/
+data/index/
+data/evals/
+data/logs/
+data/docs/
+.pytest_cache/
